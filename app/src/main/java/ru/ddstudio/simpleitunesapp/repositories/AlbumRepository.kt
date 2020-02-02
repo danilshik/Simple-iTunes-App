@@ -1,0 +1,3 @@
+package ru.ddstudio.simpleitunesapp.repositories
+
+class AlbumRepository
