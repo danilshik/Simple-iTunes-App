@@ -4,6 +4,7 @@ import android.app.Application
 import ru.ddstudio.simpleitunesapp.di.components.AppComponent
 import ru.ddstudio.simpleitunesapp.di.components.DaggerAppComponent
 import ru.ddstudio.simpleitunesapp.di.modules.AppModule
+import ru.ddstudio.simpleitunesapp.di.modules.DatabaseModule
 import ru.ddstudio.simpleitunesapp.di.modules.NetworkModule
 
 class AppDelegate : Application(){
@@ -18,6 +19,7 @@ class AppDelegate : Application(){
             .builder()
             .appModule(AppModule(this))
             .networkModule(NetworkModule())
+            .databaseModule(DatabaseModule())
             .build()
     }
 }

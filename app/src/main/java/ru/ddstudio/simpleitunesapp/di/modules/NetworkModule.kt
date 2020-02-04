@@ -20,13 +20,8 @@ class NetworkModule{
 
     @Provides
     @Singleton
-    fun provideClient() = OkHttpClient.Builder().build()
-
-    @Provides
-    @Singleton
-    fun provideRetrofit(gson: Gson, client: OkHttpClient) = Retrofit.Builder()
+    fun provideRetrofit(gson: Gson) = Retrofit.Builder()
         .baseUrl(BuildConfig.API_URL)
-        .client(client)
         .addConverterFactory(GsonConverterFactory.create(gson))
         .build()
 

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/spacing_small_8"
+    android:gravity="center">
+
+    <ImageView
+        android:id="@+id/iv_album"
+        android:layout_width="@dimen/image_view_size"
+        android:layout_height="@dimen/image_view_size"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_image_black_24dp" />
+
+
+    <TextView
+        android:id="@+id/tv_collection_name"
+        style="@style/TextView.Title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_toEndOf="@id/iv_album"
+        android:layout_toRightOf="@id/iv_album"
+        app:layout_constraintEnd_toStartOf="@+id/tv_price"
+        app:layout_constraintStart_toEndOf="@+id/iv_album"
+        app:layout_constraintTop_toTopOf="@+id/iv_album"
+        tools:text="Название альбома" />
+
+    <TextView
+        android:id="@+id/tv_artist_name"
+        style="@style/TextView.Others"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_toEndOf="@id/iv_album"
+        android:layout_toRightOf="@id/iv_album"
+        app:layout_constraintEnd_toStartOf="@+id/tv_count_tracks"
+        app:layout_constraintStart_toStartOf="@+id/tv_collection_name"
+        app:layout_constraintTop_toBottomOf="@+id/tv_collection_name"
+        tools:text="Jonh Due" />
+
+    <TextView
+        android:id="@+id/tv_price"
+        style="@style/TextView.Counter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:background="@drawable/bg_counter"
+        android:gravity="center"
+        android:minWidth="@dimen/counter_size"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_collection_name"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/tv_collection_name"
+        app:layout_constraintTop_toTopOf="@+id/tv_collection_name"
+        tools:text="13,33 USD" />
+
+    <TextView
+        android:id="@+id/tv_count_tracks"
+        style="@style/TextView.Counter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_counter"
+        android:gravity="center"
+        android:minWidth="@dimen/counter_size"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_artist_name"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/tv_artist_name"
+        app:layout_constraintTop_toTopOf="@+id/tv_artist_name"
+        tools:text="7 Tracks" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
