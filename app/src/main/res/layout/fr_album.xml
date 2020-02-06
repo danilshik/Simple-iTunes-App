@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:padding="@dimen/spacing_normal_16">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tv_collection_price"
+            style="@style/TextView.Value"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_collection_price_label"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/tv_collection_price_label"
+            app:layout_constraintTop_toTopOf="@+id/tv_collection_price_label"
+            tools:text="22 USD" />
+
+        <ImageView
+            android:id="@+id/iv_album"
+            android:layout_width="@dimen/image_view_big_size"
+            android:layout_height="@dimen/image_view_big_size"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_image_black_24dp"/>
+
+        <TextView
+            android:id="@+id/tv_artist_name_label"
+            style="@style/TextView.Label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/spacing_small_8"
+            android:layout_marginStart="@dimen/spacing_small_8"
+            android:text="@string/Artist"
+            android:layout_marginTop="0dp"
+            app:layout_constraintEnd_toStartOf="@+id/tv_artist_name"
+            app:layout_constraintStart_toEndOf="@+id/iv_album"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_artist_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_artist_name_label"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/tv_artist_name_label"
+            app:layout_constraintTop_toTopOf="@+id/tv_artist_name_label"
+            tools:text="Jon"
+            style="@style/TextView.Value"/>
+
+
+        <TextView
+            android:id="@+id/tv_collection_price_label"
+            style="@style/TextView.Label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/collection_price"
+            app:layout_constraintStart_toStartOf="@+id/tv_country_label"
+            app:layout_constraintTop_toBottomOf="@+id/tv_release_date" />
+
+        <TextView
+            android:id="@+id/tv_country_label"
+            style="@style/TextView.Label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/country"
+            app:layout_constraintStart_toStartOf="@+id/tv_artist_name_label"
+            app:layout_constraintTop_toBottomOf="@+id/tv_artist_name" />
+
+        <TextView
+            android:id="@+id/tv_country"
+            style="@style/TextView.Value"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_country_label"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/tv_country_label"
+            app:layout_constraintTop_toTopOf="@+id/tv_country_label"
+            tools:text="USA" />
+
+        <TextView
+            android:id="@+id/tv_release_date_label"
+            style="@style/TextView.Label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/release_date"
+            app:layout_constraintStart_toStartOf="@+id/tv_collection_price_label"
+            app:layout_constraintTop_toBottomOf="@+id/tv_country" />
+
+
+        <TextView
+            android:id="@+id/tv_release_date"
+            style="@style/TextView.Value"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_release_date_label"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/tv_release_date_label"
+            app:layout_constraintTop_toTopOf="@+id/tv_release_date_label"
+            tools:text="10-11-2016" />
+
+        <TextView
+            android:id="@+id/tv_count_tracks_label"
+            style="@style/TextView.Label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="@string/count_track"
+            app:layout_constraintStart_toStartOf="@+id/tv_collection_price_label"
+            app:layout_constraintTop_toBottomOf="@+id/tv_collection_price" />
+
+        <TextView
+            android:id="@+id/tv_count_tracks"
+            style="@style/TextView.Value"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_count_tracks_label"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/tv_count_tracks_label"
+            app:layout_constraintTop_toTopOf="@+id/tv_count_tracks_label"
+            tools:text="16" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_songs"
+            android:layout_marginTop="@dimen/spacing_normal_16"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_count_tracks"/>
+
+        <ProgressBar
+            android:id="@+id/progress_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="@+id/rv_songs"
+            app:layout_constraintEnd_toEndOf="@+id/rv_songs"
+            app:layout_constraintStart_toStartOf="@+id/rv_songs"
+            app:layout_constraintTop_toTopOf="@+id/rv_songs" />
+
+        <TextView
+            android:id="@+id/tv_empty"
+            style="@style/TextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/result_empty"
+            android:gravity="center"
+            android:textColor="?attr/colorPrimary"
+            android:textSize="20sp"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="@+id/rv_songs"
+            app:layout_constraintEnd_toEndOf="@+id/rv_songs"
+            app:layout_constraintStart_toStartOf="@+id/rv_songs"
+            app:layout_constraintTop_toBottomOf="@+id/rv_songs"
+            app:layout_constraintTop_toTopOf="@+id/rv_songs" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.core.widget.NestedScrollView>

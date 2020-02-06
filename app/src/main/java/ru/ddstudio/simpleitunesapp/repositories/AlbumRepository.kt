@@ -5,7 +5,6 @@ import androidx.lifecycle.LiveData
 import ru.ddstudio.simpleitunesapp.data.Result
 import ru.ddstudio.simpleitunesapp.data.database.Album
 import ru.ddstudio.simpleitunesapp.data.database.AppDatabase
-import ru.ddstudio.simpleitunesapp.data.database.daos.AlbumDao
 import ru.ddstudio.simpleitunesapp.data.remote.album.AlbumRemoteDataSource
 import ru.ddstudio.simpleitunesapp.extensions.resultLiveData
 import javax.inject.Inject

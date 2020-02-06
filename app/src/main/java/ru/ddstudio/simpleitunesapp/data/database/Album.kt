@@ -3,22 +3,23 @@ package ru.ddstudio.simpleitunesapp.data.database
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.google.gson.annotations.SerializedName
+import ru.ddstudio.simpleitunesapp.data.database.BaseEntity
+import java.io.Serializable
 import java.util.*
 
 @Entity(tableName = "album")
 data class Album (
     @ColumnInfo(name = "wrapper_type")
-    val wrapperType : String,
+    override var wrapperType : String,
     @ColumnInfo(name = "collection_type")
     val collectionType : String,
     @ColumnInfo(name = "artist_id")
     val artistId : Int,
     @PrimaryKey(autoGenerate = false)
     @ColumnInfo(name = "collection_id")
-    val collectionId: Int,
+    val collectionId: Long,
     @ColumnInfo(name = "amg_artist_id")
-    val amgArtistId: Int,
+    val amgArtistId: Long,
     @ColumnInfo(name = "artist_name")
     val artistName: String?,
     @ColumnInfo(name = "collection_name")
@@ -46,5 +47,4 @@ data class Album (
     val releaseDate: Date,
     @ColumnInfo(name = "primary_genre_name")
     val primaryGenreName: String?
-
-)
+) : BaseEntity(), Serializable

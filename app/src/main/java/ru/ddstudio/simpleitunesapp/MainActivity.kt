@@ -23,32 +23,13 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initView(){
+
         setSupportActionBar(toolbar)
-        toolbar.setTitle(R.string.app_name)
         val navController = findNavController(R.id.nav_host_fragment)
         val appBarConfiguration = AppBarConfiguration(navController.graph)
-        setupActionBarWithNavController(navController, appBarConfiguration)
+//        setupActionBarWithNavController(navController, appBarConfiguration)
+        toolbar.setupWithNavController(navController, appBarConfiguration)
 
 
     }
-
-//    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-//        menuInflater.inflate(R.menu.search_menu, menu)
-//        val searchItem = menu?.findItem(R.id.action_search)
-//        val searchView = searchItem?.actionView as SearchView
-//        searchView.queryHint = "Введите название альбома"
-//        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener{
-//            override fun onQueryTextSubmit(query: String?): Boolean {
-//                return true
-//            }
-//
-//            override fun onQueryTextChange(newText: String?): Boolean {
-//                return true
-//            }
-//        })
-//
-//        return super.onCreateOptionsMenu(menu)
-//    }
-
-
 }

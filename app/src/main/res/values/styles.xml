@@ -19,6 +19,16 @@
         <item name="android:maxLines">1</item>
     </style>
 
+    <style name="TextView.Label" parent="TextView">
+        <item name="android:textColor">@color/color_primary</item>
+        <item name="android:layout_marginTop">@dimen/spacing_small_8</item>
+    </style>
+
+    <style name="TextView.Value" parent="TextView">
+        <item name="android:layout_marginLeft">@dimen/spacing_small_8</item>
+        <item name="android:textColor">@color/color_primary_dark</item>
+    </style>
+
     <style name="TextView.Counter" parent="TextView">
         <item name="android:textColor">@android:color/white</item>
         <item name="android:paddingLeft">@dimen/spacing_tiny_4</item>

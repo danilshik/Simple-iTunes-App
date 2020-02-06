@@ -1,34 +1,37 @@
-package ru.ddstudio.simpleitunesapp.ui.album_list
+package ru.ddstudio.simpleitunesapp.ui.album
 
 import android.os.Bundle
 import android.util.Log
 import android.view.*
-import androidx.appcompat.widget.SearchView
 import androidx.appcompat.widget.Toolbar
-import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.bumptech.glide.Glide
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.fr_list_album.*
-import kotlinx.android.synthetic.main.fr_list_album.view.*
+import kotlinx.android.synthetic.main.fr_album.*
+import kotlinx.android.synthetic.main.fr_album.view.*
+import kotlinx.android.synthetic.main.fr_album.view.tv_artist_name
+import kotlinx.android.synthetic.main.fr_album.view.tv_count_tracks
 import ru.ddstudio.simpleitunesapp.AppDelegate
 import ru.ddstudio.simpleitunesapp.MainViewModelFactory
 import ru.ddstudio.simpleitunesapp.R
 import ru.ddstudio.simpleitunesapp.data.Result
 import ru.ddstudio.simpleitunesapp.data.database.Album
+import ru.ddstudio.simpleitunesapp.extensions.format
 import ru.ddstudio.simpleitunesapp.utils.ConnectUtils
 import javax.inject.Inject
 
-class AlbumListFragment : Fragment(){
-    private lateinit var viewModel: AlbumListViewModel
+class AlbumFragment : Fragment(){
+    private lateinit var album : Album
+    private lateinit var songAdapter: SongAdapter
+
+    private lateinit var viewModel: AlbumViewModel
     @Inject
     lateinit var viewModelFactory : MainViewModelFactory
-    private lateinit var albumListAdapter: AlbumListAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,33 +43,47 @@ class AlbumListFragment : Fragment(){
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        setHasOptionsMenu(true)
-        val view = inflater.inflate(R.layout.fr_list_album, container, false)
+        val view = inflater.inflate(R.layout.fr_album, container, false)
+
         initViews(view)
         initViewModel(view)
         return view
     }
 
     private fun initViews(view: View){
+        album = arguments?.getSerializable("album") as Album
+        Log.d("AlbumFragment", album.toString())
+
         val toolbar : Toolbar = activity!!.toolbar
-        toolbar.title = "Albums"
-        albumListAdapter = AlbumListAdapter{transmit(it)}
+        toolbar.title = album.collectionName
+
+
+        view.tv_artist_name.text = album.artistName.toString()
+        view.tv_country.text = album.country.toString()
+        view.tv_release_date.text = "${album.releaseDate.format()}"
+        view.tv_collection_price.text = if(album.collectionPrice != null) "${album.collectionPrice} ${album.currency}" else "-"
+        view.tv_count_tracks.text = album.trackCount.toString()
+
+        Glide.with(view.iv_album)
+            .load(album.artworkUrl100)
+            .into(view.iv_album)
+
+        songAdapter = SongAdapter{}
         val divider = DividerItemDecoration(context, DividerItemDecoration.VERTICAL)
 
-        with(view.rv_list_albums){
-            adapter = albumListAdapter
+        with(view.rv_songs){
+            adapter = songAdapter
             layoutManager = LinearLayoutManager(context)
             addItemDecoration(divider)
         }
-
-
     }
 
-    private fun initViewModel(view: View){
-        viewModel = ViewModelProvider(this, viewModelFactory).get(AlbumListViewModel::class.java)
-        viewModel.getAlbums().observe(viewLifecycleOwner, Observer { result ->
+    private fun initViewModel(view: View) {
+        viewModel = ViewModelProvider(this, viewModelFactory).get(AlbumViewModel::class.java)
+        viewModel.setAlbum(album)
+        viewModel.getSongData().observe(viewLifecycleOwner, Observer { result ->
 
-            Log.d("AlbumsFragment", result.toString())
+            Log.d("AlbumFragment", result.toString())
             when(result.status){
                 Result.Status.SUCCESS -> {
                     showProgressBar(false)
@@ -76,14 +93,13 @@ class AlbumListFragment : Fragment(){
                     } else {
                         showTextView(false)
                         showRecyclerView(true)
-                        albumListAdapter.updateData(result.data)
+                        songAdapter.updateData(result.data)
                     }
 
                 }
                 Result.Status.ERROR -> {
                     showProgressBar(false)
                     showRecyclerView(false)
-//                    showTextView(true, result.error.toString())
                     if(ConnectUtils.isConnected(context!!))
                         Snackbar.make(
                             view,
@@ -105,29 +121,6 @@ class AlbumListFragment : Fragment(){
                 }
             }
         })
-
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-
-        inflater.inflate(R.menu.search_menu, menu)
-        val searchItem = menu.findItem(R.id.action_search)
-        val searchView = searchItem.actionView as SearchView
-        searchView.queryHint = "Введите название альбома"
-        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener{
-            override fun onQueryTextSubmit(query: String?): Boolean {
-                viewModel.handleSearchQuery(query)
-                return true
-            }
-
-            override fun onQueryTextChange(newText: String?): Boolean {
-                viewModel.handleSearchQuery(newText)
-                return true
-            }
-        })
-//
-//        return super.onCreateOptionsMenu(menu)
-        super.onCreateOptionsMenu(menu, inflater)
     }
 
     private fun showProgressBar(isShow : Boolean = true){
@@ -145,19 +138,7 @@ class AlbumListFragment : Fragment(){
     }
 
     private fun showRecyclerView(isShow: Boolean = true){
-        rv_list_albums.visibility = if(isShow) View.VISIBLE else View.INVISIBLE
+        rv_songs.visibility = if(isShow) View.VISIBLE else View.INVISIBLE
     }
-
-    private fun transmit(item: Album){
-        val bundle = bundleOf("album" to item)
-        nav_host_fragment?.findNavController()?.navigate(R.id.action_nav_album_list_to_nav_album, bundle)
-    }
-
-    companion object{
-        fun getInstance() : AlbumListFragment{
-            return AlbumListFragment()
-        }
-    }
-
 
 }

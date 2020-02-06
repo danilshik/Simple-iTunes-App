@@ -1,10 +1,11 @@
 package ru.ddstudio.simpleitunesapp.api
 
+import com.google.gson.JsonObject
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query
 import ru.ddstudio.simpleitunesapp.data.database.Album
-import ru.ddstudio.simpleitunesapp.data.remote.album.BaseResponse
+import ru.ddstudio.simpleitunesapp.data.remote.BaseResponse
 
 interface APIService{
     /**
@@ -17,15 +18,15 @@ interface APIService{
         @Query("entity") typeEntity: String = "album") : Response<BaseResponse<Album>>
 
 
+
     /**
-     * Поиск songs по параметру albumTerm (название альбома)
-     * https://itunes.apple.com/search?entity=song&attribute=albumTerm&term=Forever Changes (2015 Remastered Version)
+     * Поиск album по collectionId и song в нем
+     * https://itunes.apple.com/lookup?id=259510974&entity=song, где id - collectionId album
      */
-    @GET("search")
-    suspend fun getSongsByAlbumTerm(
-        @Query("term") searchQuery: String,
-        @Query("entity") typeEntity: String = "song",
-        @Query("attribute") attribute: String = "albumTerm"
-    )
+    @GET("lookup")
+    suspend fun getAlbumAndSongs(
+        @Query("id") collectionId : String,
+        @Query("entity") entity: String = "song"
+    ) : Response<BaseResponse<JsonObject>>
 
 }
