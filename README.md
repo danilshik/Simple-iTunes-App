@@ -4,7 +4,7 @@
 
 + Kotlin
 + MVVM (без Databinding)
-+ Corotine
++ Coroutine
 + LiveData
 + ViewModel
 + Dagger2
